@@ -6,6 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UniRx;
 using UniRx.Triggers;
+using xRIoT.Util;
+using Cysharp.Threading.Tasks;
+using System.Linq;
 
 namespace xRIoT.VideoWindow
 {
@@ -23,7 +26,7 @@ namespace xRIoT.VideoWindow
         private VideoPlayer m_VideoPlayer = null;
 
         [SerializeField]
-        private RawImage m_RawImage = null;
+        private Renderer m_PlaneMaterial = null;
 
         // ìÆâÊÇïœçX
         private readonly BehaviorSubject<VideoClip> m_ChangeVideoClip = new BehaviorSubject<VideoClip>(null);
@@ -33,6 +36,9 @@ namespace xRIoT.VideoWindow
         private readonly Subject<VideoState> m_NotifyVideoState = new Subject<VideoState>();
         public IObservable<VideoState> NotifyVideoState => this.m_NotifyVideoState;
 
+        // ìÆâÊÇÃî‘çÜ
+        private int videoCount = 0;
+
 
         private void Awake()
         {
@@ -41,11 +47,11 @@ namespace xRIoT.VideoWindow
                 .ObserveEveryValueChanged(_ => _.isPrepared)
                 .ToSequentialReadOnlyReactiveProperty();
 
-            this.m_RawImage
-                .ObserveEveryValueChanged(_ => _.texture)
+            this.m_PlaneMaterial
+                .ObserveEveryValueChanged(_ => _.material.mainTexture)
                 .Select(_ => _ != null ? Color.white : Color.black)
-                .Subscribe(_ => this.m_RawImage.color = _)
-                .AddTo(this.m_RawImage);
+                .Subscribe(_ => this.m_PlaneMaterial.material.color = _)
+                .AddTo(this.m_PlaneMaterial);
 
             // ìÆâÊïœçX
             this.m_ChangeVideoClip
@@ -88,11 +94,37 @@ namespace xRIoT.VideoWindow
         }
 
         private void VideoPlayerUpdate()
-            => this.VideoPlayerUpdate(this.m_VideoPlayer, this.m_RawImage);
+            => this.VideoPlayerUpdate(this.m_VideoPlayer, this.m_PlaneMaterial);
 
-        private void VideoPlayerUpdate(VideoPlayer videoPlayer,RawImage rawImage)
+        private void VideoPlayerUpdate(VideoPlayer videoPlayer, Renderer rawImage)
         {
-            rawImage.texture = videoPlayer.texture;
+            rawImage.material.mainTexture = videoPlayer.texture;
+        }
+
+        private void ChangeVideo(string path)
+        {
+            path.ResourcesLoadAsync<VideoClip>()
+                .ToObservable()
+                .Where(_ => _ != null)
+                .Subscribe(ChangeVideoClip.OnNext);
+        }
+
+        public void OnNextVideo()
+        {
+            if(VideoPathArray.VideoPaths.Count() > videoCount)
+            {
+                videoCount++;
+                ChangeVideo(VideoPathArray.VideoPaths.ElementAt(videoCount));
+            }
+        }
+
+        public void OnPrevVideo()
+        {
+            if (0 <= videoCount)
+            {
+                videoCount--;
+                ChangeVideo(VideoPathArray.VideoPaths.ElementAt(videoCount));
+            }
         }
     }
 }
