@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 137169587}
   - component: {fileID: 137169589}
   - component: {fileID: 137169588}
+  - component: {fileID: 137169590}
   m_Layer: 5
   m_Name: VideoPlayer
   m_TagString: Untagged
@@ -195,9 +196,9 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
-  - {fileID: 0}
+  - {fileID: 137169590}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
@@ -210,6 +211,102 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
+--- !u!82 &137169590
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137169586}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &196132693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -888,6 +985,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 921501655}
+  - component: {fileID: 921501657}
   - component: {fileID: 921501656}
   m_Layer: 0
   m_Name: LightController
@@ -923,8 +1021,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1219b09f84c28942a7356a6970f2fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDetection: {fileID: 1440507056}
+  sightDetection: {fileID: 921501657}
   buttons: {fileID: 1412233356}
+--- !u!114 &921501657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921501654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a461e3bee9c5640b7a0bc1d462636a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 921501655}
 --- !u!1001 &924977442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1630,6 +1741,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1300528208}
+  - component: {fileID: 1300528210}
   - component: {fileID: 1300528209}
   m_Layer: 0
   m_Name: TVController
@@ -1666,8 +1778,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1219b09f84c28942a7356a6970f2fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightDetection: {fileID: 1440507056}
+  sightDetection: {fileID: 1300528210}
   buttons: {fileID: 1780971908}
+--- !u!114 &1300528210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300528207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a461e3bee9c5640b7a0bc1d462636a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 1300528208}
 --- !u!1001 &1386161299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1961,6 +2086,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2800000, guid: 8d0274d8bc6a17844a08b493920d9491, type: 3}
     - target: {fileID: 7893276699029580517, guid: 456ae884891e33d4d94b53af0f260938, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7893276699029580517, guid: 456ae884891e33d4d94b53af0f260938, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 6
       objectReference: {fileID: 0}
@@ -1992,6 +2121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1412233357}
+  - component: {fileID: 1412233358}
   m_Layer: 0
   m_Name: SwitchButton
   m_TagString: Untagged
@@ -2015,6 +2145,18 @@ Transform:
   m_Father: {fileID: 921501655}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412233358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412233356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363a7a67de9c1eb47965124d77d90060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1440507054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,7 +2166,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1440507055}
-  - component: {fileID: 1440507056}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -2046,19 +2187,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1440507056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440507054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a461e3bee9c5640b7a0bc1d462636a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTransform: {fileID: 1300528208}
 --- !u!1 &1447445895
 GameObject:
   m_ObjectHideFlags: 0
