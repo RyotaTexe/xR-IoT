@@ -113,8 +113,8 @@ namespace xRIoT.VideoWindow
         {
             if(VideoPathArray.VideoPaths.Count() > videoCount)
             {
-                videoCount++;
                 ChangeVideo(VideoPathArray.VideoPaths.ElementAt(videoCount));
+                videoCount++;
             }
         }
 

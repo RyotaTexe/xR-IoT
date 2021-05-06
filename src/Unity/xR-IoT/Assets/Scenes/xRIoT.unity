@@ -11500,6 +11500,7 @@ GameObject:
   - component: {fileID: 689953173965569412}
   - component: {fileID: 2227640520726081789}
   - component: {fileID: 1902288215822773460}
+  - component: {fileID: 2388198152623176048}
   m_Layer: 0
   m_Name: Line032
   m_TagString: Untagged
@@ -11507,6 +11508,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &2388198152623176048
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2388198152623176047}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.140001, y: 6.300001, z: 0.15000004}
+  m_Center: {x: -2.2900002, y: 0.26908427, z: 0.07500002}
 --- !u!23 &2393185298097462018
 MeshRenderer:
   m_ObjectHideFlags: 0
