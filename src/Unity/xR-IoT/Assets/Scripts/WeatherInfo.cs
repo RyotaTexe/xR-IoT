@@ -8,6 +8,11 @@ using LitJson;
 
 public class WeatherInfo : MonoBehaviour
 {
+    #region Unity Inspector
+    [SerializeField]
+    private MeshRenderer weatherIcon;
+    #endregion
+
     private void Start()
     {
         
@@ -38,18 +43,33 @@ public class WeatherInfo : MonoBehaviour
 
             JsonData jsonData = JsonMapper.ToObject(request.downloadHandler.text);
 
-            Debug.Log(jsonData["title"]);
-            Debug.Log(jsonData["description"]["text"]);
-            Debug.Log(jsonData["forecasts"][0]["date"]);
-            Debug.Log(jsonData["forecasts"][0]["telop"]);
-            Debug.Log(jsonData["forecasts"][0]["temperature"]["max"]["celsius"]);
-            Debug.Log(jsonData["forecasts"][0]["chanceOfRain"]["18-24"]);
-            Debug.Log(jsonData["forecasts"][1]["date"]);
-            Debug.Log(jsonData["forecasts"][1]["telop"]);
-            Debug.Log(jsonData["forecasts"][1]["temperature"]["max"]["celsius"]);
-            Debug.Log(jsonData["forecasts"][1]["chanceOfRain"]["18-24"]);
-            Debug.Log(jsonData["location"]["city"]);
+            //weatherIcon.material.mainTexture = 
 
+
+            Debug.Log(jsonData["title"]);
+            Debug.Log(jsonData["forecasts"][0]["image"]["url"]);
+
+            var iconUrl = jsonData["forecasts"][0]["image"]["url"].ToString();
+            StartCoroutine(GetWeatherIcon(iconUrl));
+
+        }
+    }
+
+    private IEnumerator GetWeatherIcon(string url)
+    {
+        UnityWebRequest request
+            = UnityWebRequestTexture.GetTexture(url);
+
+        yield return request.SendWebRequest();
+
+        if(request.isHttpError || request.isNetworkError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            weatherIcon.material.mainTexture
+                = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
     }
 }
