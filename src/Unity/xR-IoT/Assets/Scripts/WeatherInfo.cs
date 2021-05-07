@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.Networking;
+using LitJson;
 
 
 public class WeatherInfo : MonoBehaviour
@@ -34,6 +35,20 @@ public class WeatherInfo : MonoBehaviour
             Debug.Log("Success : Succeeded to get weather infomation");
 
             Debug.Log(request.downloadHandler.text);
+
+            JsonData jsonData = JsonMapper.ToObject(request.downloadHandler.text);
+
+            Debug.Log(jsonData["title"]);
+            Debug.Log(jsonData["description"]["text"]);
+            Debug.Log(jsonData["forecasts"][0]["date"]);
+            Debug.Log(jsonData["forecasts"][0]["telop"]);
+            Debug.Log(jsonData["forecasts"][0]["temperature"]["max"]["celsius"]);
+            Debug.Log(jsonData["forecasts"][0]["chanceOfRain"]["18-24"]);
+            Debug.Log(jsonData["forecasts"][1]["date"]);
+            Debug.Log(jsonData["forecasts"][1]["telop"]);
+            Debug.Log(jsonData["forecasts"][1]["temperature"]["max"]["celsius"]);
+            Debug.Log(jsonData["forecasts"][1]["chanceOfRain"]["18-24"]);
+            Debug.Log(jsonData["location"]["city"]);
 
         }
     }
