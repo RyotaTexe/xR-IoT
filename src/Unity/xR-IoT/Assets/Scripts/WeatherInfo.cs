@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.Networking;
 using LitJson;
+using TMPro;
 
 
 public class WeatherInfo : MonoBehaviour
@@ -11,11 +12,26 @@ public class WeatherInfo : MonoBehaviour
     #region Unity Inspector
     [SerializeField]
     private MeshRenderer weatherIcon;
+
+    [SerializeField]
+    private TextMeshPro cityName;
+
+    [SerializeField]
+    private TextMeshPro weatherText;
+
+    [SerializeField]
+    private TextMeshPro temperature;
+
+    [SerializeField]
+    private TextMeshPro maxTemperature;
+
+    [SerializeField]
+    private TextMeshPro minTemperature;
     #endregion
 
     private void Start()
     {
-        
+        StartCoroutine(GetWeatherInfo());
     }
 
     public void GetWeatherInfoButton()
@@ -27,7 +43,7 @@ public class WeatherInfo : MonoBehaviour
     {
         UnityWebRequest request 
             = UnityWebRequest
-            .Get("https://weather.tsukumijima.net/api/forecast?city=130010");
+            .Get("http://api.openweathermap.org/data/2.5/weather?q=Tokyo,JP&appid=aba5af78ce90de3f752c6e32a4966bb0&lang=ja&units=metric");
 
         yield return request.SendWebRequest();
 
@@ -42,16 +58,15 @@ public class WeatherInfo : MonoBehaviour
             Debug.Log(request.downloadHandler.text);
 
             JsonData jsonData = JsonMapper.ToObject(request.downloadHandler.text);
+            //Debug.Log(jsonData["weather"][0]["description"]);
 
-            //weatherIcon.material.mainTexture = 
-
-
-            Debug.Log(jsonData["title"]);
-            Debug.Log(jsonData["forecasts"][0]["image"]["url"]);
-
-            var iconUrl = jsonData["forecasts"][0]["image"]["url"].ToString();
+            var iconName = jsonData["weather"][0]["icon"].ToString();
+            var iconUrl = "http://openweathermap.org/img/w/" + iconName + ".png";
             StartCoroutine(GetWeatherIcon(iconUrl));
 
+            UpdateWeatherInfo(jsonData);
+
+            //Debug.Log(jsonData["forecasts"][0]["temperature"]["min"]["celsius"]);
         }
     }
 
@@ -71,5 +86,22 @@ public class WeatherInfo : MonoBehaviour
             weatherIcon.material.mainTexture
                 = ((DownloadHandlerTexture)request.downloadHandler).texture;
         }
+
+        
+    }
+
+    private void UpdateWeatherInfo(JsonData jsonData)
+    {
+        //cityName.text = jsonData["sys"]["country"].ToString();
+        weatherText.text = jsonData["weather"][0]["description"].ToString();
+        temperature.text = jsonData["main"]["temp"].ToString() + "Åé";
+        maxTemperature.text = "ç≈çÇ:" + jsonData["main"]["temp_max"].ToString() + "Åé";
+        minTemperature.text = "ç≈í·:" + jsonData["main"]["temp_min"].ToString() + "Åé";
+
+        //Debug.Log(jsonData["sys"]["country"]);
+        Debug.Log(jsonData["weather"][0]["description"]);
+        Debug.Log(jsonData["main"]["temp"]);
+        Debug.Log(jsonData["main"]["temp_max"]);
+        Debug.Log(jsonData["main"]["temp_min"]);
     }
 }
