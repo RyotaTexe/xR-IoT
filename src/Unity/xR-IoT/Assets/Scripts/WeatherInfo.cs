@@ -58,15 +58,12 @@ public class WeatherInfo : MonoBehaviour
             Debug.Log(request.downloadHandler.text);
 
             JsonData jsonData = JsonMapper.ToObject(request.downloadHandler.text);
-            //Debug.Log(jsonData["weather"][0]["description"]);
 
             var iconName = jsonData["weather"][0]["icon"].ToString();
             var iconUrl = "http://openweathermap.org/img/w/" + iconName + ".png";
             StartCoroutine(GetWeatherIcon(iconUrl));
 
             UpdateWeatherInfo(jsonData);
-
-            //Debug.Log(jsonData["forecasts"][0]["temperature"]["min"]["celsius"]);
         }
     }
 
@@ -92,13 +89,11 @@ public class WeatherInfo : MonoBehaviour
 
     private void UpdateWeatherInfo(JsonData jsonData)
     {
-        //cityName.text = jsonData["sys"]["country"].ToString();
         weatherText.text = jsonData["weather"][0]["description"].ToString();
         temperature.text = jsonData["main"]["temp"].ToString() + "Åé";
         maxTemperature.text = "ç≈çÇ:" + jsonData["main"]["temp_max"].ToString() + "Åé";
         minTemperature.text = "ç≈í·:" + jsonData["main"]["temp_min"].ToString() + "Åé";
 
-        //Debug.Log(jsonData["sys"]["country"]);
         Debug.Log(jsonData["weather"][0]["description"]);
         Debug.Log(jsonData["main"]["temp"]);
         Debug.Log(jsonData["main"]["temp_max"]);
